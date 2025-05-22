@@ -1,39 +1,38 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# My DTHR Clock
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+Pacote Flutter para sincronizar e manter um relógio local baseado na data/hora de uma API externa, com fallback persistente e compensação de latência. Totalmente autônomo: basta fornecer a URL da API.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+## ✨ Recursos
+- Sincroniza a DTHR com a API automaticamente.
+- Compensa a latência de rede.
+- Armazena localmente para funcionar offline.
+- Re-sincroniza periodicamente.
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+## 🚀 Instalação
 
-## Features
+Adicione ao seu `pubspec.yaml`:
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
+```yaml
+dependencies:
+  my_dthr_clock:
+    path: ../my_dthr_clock
 ```
 
-## Additional information
+## 🧪 Exemplo de uso
+```dart
+final clock = DthrService('https://example.com/api/dthr');
+await clock.initialize();
+final now = await clock.getCurrentDthr();
+print("DTHR atual: \$now");
+```
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+## 📦 API esperada
+A URL deve retornar JSON:
+```json
+{
+  "dthr": "2025-05-21T15:00:00Z"
+}
+```
+
+## 📄 Licença
+MIT
