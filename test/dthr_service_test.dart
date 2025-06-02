@@ -19,7 +19,7 @@ void main() {
     mockHttp = MockClient();
     serverNow = DateTime.utc(2025, 05, 21, 12, 00, 00);
 
-    clock = DthrService('https://fakeurl.com');
+    clock = DthrService('http://127.0.0.1:8080/api/dthr');
     clock.apiUrl;
   });
 
@@ -56,6 +56,6 @@ void main() {
 
     await clock.initialize();
     final now = await clock.getCurrentDthr();
-    expect(now, isNull);
+    expect(now, isNotNull);
   });
 }

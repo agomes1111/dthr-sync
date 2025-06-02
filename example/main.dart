@@ -1,10 +1,11 @@
+import 'package:dthr_sync/dthr_sync.dart';
 import 'package:flutter/material.dart';
 import 'package:dthr_sync/src/dthr_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final clock = DthrService('https://example.com/api/dthr');
+  final clock = DthrService('http://127.0.0.1:8080/api/dthr');
   await clock.initialize();
 
   runApp(MyApp(clock: clock));

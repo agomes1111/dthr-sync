@@ -13,6 +13,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  get_it: ^8.0.3
   http: ^1.4.0
   shared_preferences: ^2.5.3
 
