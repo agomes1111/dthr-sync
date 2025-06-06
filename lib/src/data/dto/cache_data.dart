@@ -1,17 +1,15 @@
-import 'package:dthr_sync/src/data/dto/api_time_dto.dart';
 import 'package:dthr_sync/src/data/dto/plugin_settings_dto.dart';
 import 'package:dthr_sync/src/data/dto/runtime_loaded_data.dart';
-import 'package:dthr_sync/src/domain/entities/runtime_data.dart';
+import 'package:dthr_sync/src/domain/entities/plugin_settings.dart';
 
-class CacheData extends RuntimeData {
+class CacheData {
+  PluginSettings pluginSettings;
   CacheData({
-    required super.loadedClock,
-    required super.pluginSettings,
+    required this.pluginSettings,
   });
 
   factory CacheData.fromCacheMock(String cacheJson) {
     return CacheData(
-      loadedClock: ApiTimeDto.fromCacheMock(cacheJson),
       pluginSettings: Settings.fromCacheMock(cacheJson),
     );
   }
@@ -20,8 +18,14 @@ class CacheData extends RuntimeData {
 
   RuntimeLoadedData toRuntimeData() {
     return RuntimeLoadedData(
-      loadedClock: this.loadedClock,
+      loadedClock: null,
       pluginSettings: this.pluginSettings,
     );
+  }
+
+  @override
+  CacheData toCache() {
+    // TODO: implement toCache
+    throw UnimplementedError();
   }
 }

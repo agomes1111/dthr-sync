@@ -7,6 +7,9 @@ class GetTimeUseCase {
   GetTimeUseCase(this._dataRepo);
 
   Future<RuntimeData> call() async {
-    return await _dataRepo.getData();
+    return (await _dataRepo.getData()).fold(
+      (l) => l,
+      (r) => r.toRuntimeData(_dataRepo.apiSource.settings),
+    );
   }
 }

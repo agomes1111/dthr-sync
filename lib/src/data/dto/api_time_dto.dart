@@ -6,6 +6,7 @@ class ApiTimeDto extends SyncedClock {
   ApiTimeDto({
     required super.serverTimestamp,
     required super.networkLatency,
+    super.elapsedProv,
   });
 
   factory ApiTimeDto.fromCacheMock(String cacheJson) {

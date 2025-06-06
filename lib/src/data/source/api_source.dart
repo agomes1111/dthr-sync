@@ -5,9 +5,12 @@ class ApiSource {
   PluginSettings settings;
   ApiSource(this.settings);
 
+  Future<ApiTimeDto> getApiTimeThrow() async {
+    throw Exception('test');
+  }
+
   Future<ApiTimeDto> getApiTimeMock() async {
-    await Future.delayed(Duration(seconds: 2));
-    // return DateTime.now();
+    await Future.delayed(const Duration(seconds: 1));
     return ApiTimeDto(
       serverTimestamp: DateTime.now(),
       networkLatency: const Duration(seconds: 1),
