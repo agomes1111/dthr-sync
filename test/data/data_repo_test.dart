@@ -34,6 +34,7 @@ class MockLoadedClock extends Mock implements SyncedClock {}
 class MockSettings extends Mock implements PluginSettings {}
 
 void main() {
+  int syncInterval = 1;
   late MockApiSource mockApi;
   late MockCache mockCache;
   late MockRuntimeLoadedDataSingleton mockSingleton;
@@ -85,7 +86,14 @@ void main() {
     () async {
       /// mocks runtime singleton helper
       when(() => mockSingleton.isLoaded()).thenReturn(true);
-      when(() => mockSingleton.loadedData).thenReturn(apiTimeDto.toRuntimeData(Settings('')));
+      when(() => mockSingleton.loadedData).thenReturn(
+        apiTimeDto.toRuntimeData(
+          Settings(
+            '',
+            syncInterval,
+          ),
+        ),
+      );
 
       /// simulates data beeing fetched
       final result = await dataRepoUnit.getData();
@@ -119,7 +127,10 @@ void main() {
           return apiTimeDto;
         },
       );
-      when(() => mockApi.settings).thenReturn(Settings('fake_url'));
+      when(() => mockApi.settings).thenReturn(Settings(
+        'fake_url',
+        syncInterval,
+      ));
 
       /// simulates data beeing fetched
       final result = await dataRepoUnit.getData();
@@ -144,7 +155,12 @@ void main() {
   test(
     '(no mocks) Loads the time first from the API, then from the Runtime singleton on subsequent calls. - getData()',
     () async {
-      var _apiSource = ApiSource(Settings(''));
+      var _apiSource = ApiSource(
+        Settings(
+          '',
+          syncInterval,
+        ),
+      );
       var _cache = Cache();
       var _loadedDataSingleton = RuntimeLoadedDataSingleton(null);
 

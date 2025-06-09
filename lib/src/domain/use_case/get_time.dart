@@ -8,7 +8,10 @@ class GetTimeUseCase {
 
   Future<RuntimeData> call() async {
     return (await _dataRepo.getData()).fold(
+      /// returns runtime loaded timestamp
       (l) => l,
+
+      /// returns api fetched timestamp
       (r) => r.toRuntimeData(_dataRepo.apiSource.settings),
     );
   }

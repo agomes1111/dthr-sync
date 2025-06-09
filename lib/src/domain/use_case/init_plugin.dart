@@ -29,14 +29,17 @@ class InitPluginUseCase {
     // RuntimeLoadedDataSingleton singleton = RuntimeLoadedDataSingleton(null);
 
     return Clock(
-      GetTimeUseCase(
-        DataRepo(
+        GetTimeUseCase(DataRepo(
           apiSource: apiSource!,
           cache: cache,
           loadedDataSingleton: singleton,
-        ),
-      ),
-      SyncUseCase(SyncService(singleton)),
-    );
+        )),
+        SyncUseCase(
+            // starts sync timer when instanciated
+            SyncService(
+          singleton,
+          apiSource!,
+          settings.syncJobInterval,
+        )));
   }
 }

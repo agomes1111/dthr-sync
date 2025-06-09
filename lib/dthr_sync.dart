@@ -35,5 +35,5 @@ Clock get clock {
 }
 
 final Function setupAppClock = (PluginSettings pluginSettings) {
-  _clock = _initPluginUseCase(pluginSettings);
+  _clock = _initPluginUseCase.call(pluginSettings);
 };

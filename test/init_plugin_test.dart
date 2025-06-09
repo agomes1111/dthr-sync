@@ -16,7 +16,7 @@ void main() {
   test(
     'clock getter loads correctly if setupAppClock is called',
     () async {
-      setupAppClock(Settings(''));
+      setupAppClock(Settings('', 1));
       expect(() => clock, isNotNull);
     },
   );

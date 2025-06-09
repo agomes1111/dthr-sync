@@ -1,4 +1,3 @@
-import 'package:dthr_sync/dthr_sync.dart';
 import 'package:dthr_sync/src/data/dto/api_time_dto.dart';
 import 'package:dthr_sync/src/data/dto/runtime_loaded_data.dart';
 import 'package:dthr_sync/src/data/source/api_source.dart';
