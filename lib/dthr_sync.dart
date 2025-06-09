@@ -2,7 +2,7 @@ library dthr_sync;
 
 export 'package:dthr_sync/src/data/dto/plugin_settings_dto.dart';
 
-import 'package:dthr_sync/src/domain/entities/plugin_settings.dart';
+import 'package:dthr_sync/src/data/dto/plugin_settings_dto.dart';
 import 'package:dthr_sync/src/domain/entities/runtime_data.dart';
 import 'package:dthr_sync/src/domain/use_case/get_time.dart';
 import 'package:dthr_sync/src/domain/use_case/init_plugin.dart';
@@ -18,7 +18,6 @@ class Clock {
 
   Future<DateTime?> getTime() async {
     RuntimeData _runtimeData = await _getTimeUseCase.call();
-    await _syncUseCase.call(_runtimeData);
     return _runtimeData.loadedClock?.currentTime;
   }
 }
@@ -34,6 +33,6 @@ Clock get clock {
     return _clock!;
 }
 
-final Function setupAppClock = (PluginSettings pluginSettings) {
+final Function setupAppClock = (Settings pluginSettings) {
   _clock = _initPluginUseCase.call(pluginSettings);
 };

@@ -5,4 +5,7 @@ class Settings extends PluginSettings {
     super.api_url,
     super.syncJobInterval,
   );
+  factory Settings.fromCacheMock(String cacheMock) {
+    return Settings('https://fake_cache_url.com', 1);
+  }
 }

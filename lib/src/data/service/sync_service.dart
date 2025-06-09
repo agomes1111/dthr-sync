@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:dthr_sync/src/data/dto/api_time_dto.dart';
+import 'package:dthr_sync/src/data/dto/plugin_settings_dto.dart';
 import 'package:dthr_sync/src/data/dto/runtime_loaded_data.dart';
 import 'package:dthr_sync/src/data/source/api_source.dart';
 import 'package:dthr_sync/src/data/source/runtime_loaded_data_singleton.dart';
@@ -8,22 +10,24 @@ import 'package:dthr_sync/src/domain/entities/runtime_data.dart';
 
 class SyncService {
   RuntimeLoadedDataSingleton singleton;
+  Settings settings;
   late Timer job;
   ApiSource apiSource;
 
   SyncService(
     this.singleton,
     this.apiSource,
-    int syncJobInterval,
+    this.settings,
   ) {
     job = Timer(
-      Duration(minutes: syncJobInterval),
+      Duration(minutes: settings.syncJobInterval),
       () async {
         log(
           name: 'syncing_clock_timestamp_tick',
           job.tick.toString(),
         );
-        await apiSource.getApiTimeMock();
+        ApiTimeDto r = await apiSource.getApiTimeMock();
+        await syncStoredData(r.toRuntimeData(settings));
       },
     );
   }
