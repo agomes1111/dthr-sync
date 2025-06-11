@@ -8,10 +8,8 @@ void main() async {
   await for (HttpRequest request in server) {
     // Add CORS headers to all responses
     request.response.headers.add('Access-Control-Allow-Origin', '*');
-    request.response.headers
-        .add('Access-Control-Allow-Methods', 'GET, OPTIONS');
-    request.response.headers
-        .add('Access-Control-Allow-Headers', 'Origin, Content-Type');
+    request.response.headers.add('Access-Control-Allow-Methods', 'GET, OPTIONS');
+    request.response.headers.add('Access-Control-Allow-Headers', 'Origin, Content-Type');
 
     // Handle preflight request
     if (request.method == 'OPTIONS') {
@@ -21,6 +19,7 @@ void main() async {
       continue;
     }
     print('request_received_${request.requestedUri}');
+    await Future.delayed(const Duration(seconds: 15));
     // Handle GET /api/dthr
     if (request.method == 'GET' && request.uri.path == '/api/dthr') {
       final now = DateTime.now().toUtc();
