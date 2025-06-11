@@ -3,7 +3,6 @@ import 'package:dthr_sync/src/domain/entities/runtime_data.dart';
 
 class GetTimeUseCase {
   DataRepo _dataRepo;
-
   GetTimeUseCase(this._dataRepo);
 
   Future<RuntimeData> call() async {

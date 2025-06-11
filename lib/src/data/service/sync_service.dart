@@ -22,12 +22,29 @@ class SyncService {
     job = Timer.periodic(
       Duration(seconds: settings.syncJobInterval),
       (_) async {
+        if (singleton.lock) {
+          log(
+            name: 'skiping_sync_tick_${_.tick}_locked_by_previous_call',
+            job.tick.toString(),
+          );
+          return;
+        }
         log(
           name: 'syncing_clock_timestamp_tick_${_.tick}',
           job.tick.toString(),
         );
-        ApiTimeDto r = await apiSource.getSvTimeStamp();
-        await syncStoredData(r.toRuntimeData(settings));
+        try {
+          singleton.lock = true;
+          ApiTimeDto r = await apiSource.getSvTimeStamp();
+          await syncStoredData(r.toRuntimeData(settings));
+        } catch (err) {
+          log(
+            name: 'syncing_clock_timestamp_tick_${_.tick}_err',
+            err.toString(),
+          );
+        } finally {
+          singleton.lock = false;
+        }
       },
     );
   }

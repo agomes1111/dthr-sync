@@ -28,7 +28,7 @@ class ApiSource {
     final response = await http.get(url);
     // if(response)
     final latency = DateTime.now().difference(start) ~/ 2;
-
+    print(latency.toString());
     if (response.statusCode == 200) {
       // final serverTime = DateTime.parse(json.decode(response.body)['dthr']);
       // _adjustedDthr = serverTime.add(latency);
