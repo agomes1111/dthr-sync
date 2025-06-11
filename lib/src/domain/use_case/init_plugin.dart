@@ -26,19 +26,19 @@ class InitPluginUseCase {
     // ApiSource apiSource = ApiSource(settings);
     // Cache cache = Cache();
     // RuntimeLoadedDataSingleton singleton = RuntimeLoadedDataSingleton(null);
-
+    SyncUseCase(
+        // starts sync timer when instanciated
+        SyncService(
+      singleton,
+      apiSource!,
+      settings,
+    ));
     return Clock(
-        GetTimeUseCase(DataRepo(
-          apiSource: apiSource!,
-          cache: cache,
-          loadedDataSingleton: singleton,
-        )),
-        SyncUseCase(
-            // starts sync timer when instanciated
-            SyncService(
-          singleton,
-          apiSource!,
-          settings,
-        )));
+      GetTimeUseCase(DataRepo(
+        apiSource: apiSource!,
+        cache: cache,
+        loadedDataSingleton: singleton,
+      )),
+    );
   }
 }

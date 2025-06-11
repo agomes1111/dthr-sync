@@ -6,14 +6,11 @@ import 'package:dthr_sync/src/data/dto/plugin_settings_dto.dart';
 import 'package:dthr_sync/src/domain/entities/runtime_data.dart';
 import 'package:dthr_sync/src/domain/use_case/get_time.dart';
 import 'package:dthr_sync/src/domain/use_case/init_plugin.dart';
-import 'package:dthr_sync/src/domain/use_case/sync.dart';
 
 class Clock {
   GetTimeUseCase _getTimeUseCase;
-  SyncUseCase _syncUseCase;
   Clock(
     this._getTimeUseCase,
-    this._syncUseCase,
   );
 
   Future<DateTime?> getTime() async {
