@@ -24,10 +24,12 @@ class DataRepo implements DataRepository {
   Future<Either<RuntimeLoadedData, ApiTimeDto>> getData() async {
     if (loadedDataSingleton.isLoaded()) {
       /// if there is already any loaded data: returns it
+      print('returnin_loaded_timestamp');
       return Left(loadedDataSingleton.loadedData!);
     } else {
       /// if there is not any data loaded fetchs from API
-      ApiTimeDto _apiTime = await apiSource.getApiTimeMock();
+      print('returnin_server_timestamp');
+      ApiTimeDto _apiTime = await apiSource.getSvTimeStamp();
       return Right(_apiTime);
     }
   }

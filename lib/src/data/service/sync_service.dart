@@ -19,14 +19,14 @@ class SyncService {
     this.apiSource,
     this.settings,
   ) {
-    job = Timer(
-      Duration(minutes: settings.syncJobInterval),
-      () async {
+    job = Timer.periodic(
+      Duration(seconds: settings.syncJobInterval),
+      (_) async {
         log(
-          name: 'syncing_clock_timestamp_tick',
+          name: 'syncing_clock_timestamp_tick_${_.tick}',
           job.tick.toString(),
         );
-        ApiTimeDto r = await apiSource.getApiTimeMock();
+        ApiTimeDto r = await apiSource.getSvTimeStamp();
         await syncStoredData(r.toRuntimeData(settings));
       },
     );
