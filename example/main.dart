@@ -6,7 +6,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   setupAppClock(
-    Settings('http://localhost:8080/api/dthr', 5),
+    Settings('http://localhost:8080/api/dthr', 30),
   );
 
   runApp(MyApp());
@@ -22,14 +22,25 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(title: const Text('My DTHR Clock')),
         body: Center(
             child: StreamBuilder<DateTime?>(
-          stream: Stream.periodic(const Duration(seconds: 1)).asyncMap((_) => clock.getTime()),
+          stream: Stream.periodic(const Duration(seconds: 1))
+              .asyncMap((_) async => await clock.getTime()),
           builder: (context, snapshot) {
-            return Text(
-              snapshot.data != null
-                  ? DateFormat('dd MMM yyyy, HH:mm')
-                      .format(DateTime.parse(snapshot.data!.toIso8601String()))
-                  : 'Sincronizando...',
-              style: const TextStyle(fontSize: 20),
+            return Column(
+              children: [
+                snapshot.error != null
+                    ? Text(snapshot.error.toString())
+                    : Text(
+                        snapshot.data != null
+                            ? DateFormat('dd MMM yyyy, HH:mm:ss')
+                                .format(DateTime.parse(snapshot.data!.toIso8601String()))
+                            : 'Sincronizando...',
+                        style: const TextStyle(fontSize: 20),
+                      ),
+                Text(
+                  DateFormat('dd MMM yyyy, HH:mm:ss').format(DateTime.now()),
+                  style: const TextStyle(fontSize: 20),
+                ),
+              ],
             );
           },
         )),
