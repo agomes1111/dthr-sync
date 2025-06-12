@@ -1,39 +1,53 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Dthr Clock
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+Pacote Flutter para sincronizar e manter um relógio local baseado na data/hora de uma API externa, com compensação de latência. Totalmente autônomo: basta fornecer a URL da API.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+Funciona em:
+  Primeiro plano: ✅
+  Segundo plano: ✅
+  App fechado: ❌
+  Offline: ☑️ (Desde que ao inicar o app tenha conexao para buscar timestamp inicial)
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+## 🪝 Keep on mind
+ O timestamp precisa ser atualizado toda vez que o app iniciar, portanto, o device precisa de conexao pelo menos em um primeiro instante para buscar o timestamp do servidor.
+ Se nao houver conexao e o plugin nao tiver conseguido buscar o clock da API o metodo `clock.getTime()` ira lancar excecao ate conseguir.
 
-## Features
+## ✨ Recursos
+- Sincroniza a DTHR com a API automaticamente periodicamente (parametrizavel)
+- Compensa a latência de rede.
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+## 🚀 Instalação
 
-## Getting started
+Adicione ao seu `pubspec.yaml`:
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
+```yaml
+dependencies:
+  my_dthr_clock:
+    path: ../my_dthr_clock
 ```
 
-## Additional information
+## 🧪 Exemplo de uso
+```dart
+setupAppClock(
+  /// segundo parametro indica o intervalo de atualizacao em 
+  Settings('http://your.server/api/dthr', 15),
+);
+final DateTime? now = await clock.getTime();
+bool no_initial_connection = now == null;
+if(no_initial_connection){
+  print('it seems that there was no connection when app started, package will keep trying to fetch server timestamp');
+} else {
+  print("DTHR atual: \$now");
+}
+```
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+## 📦 API esperada
+A URL deve retornar JSON:
+```json
+{
+  "dthr": "2025-05-21T15:00:00Z"
+}
+```
+
+## 📄 Licença
+MIT
