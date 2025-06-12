@@ -20,7 +20,7 @@ class SyncService {
     this.settings,
   ) {
     job = Timer.periodic(
-      Duration(seconds: settings.syncJobInterval),
+      Duration(minutes: settings.syncJobInterval),
       (_) async {
         if (singleton.lock) {
           log(

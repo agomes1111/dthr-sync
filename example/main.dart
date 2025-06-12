@@ -6,7 +6,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   setupAppClock(
-    Settings('http://localhost:8080/api/dthr', 30),
+    /// sync timestamp everty 5 seconds
+    Settings('http://your.server/api/dthr', 5),
   );
 
   runApp(MyApp());
