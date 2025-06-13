@@ -1,6 +1,5 @@
-import 'package:dthr_sync/dthr_sync.dart';
+import 'package:dthr_sync/single_clock.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,13 +31,12 @@ class MyApp extends StatelessWidget {
                     ? Text(snapshot.error.toString())
                     : Text(
                         snapshot.data != null
-                            ? DateFormat('dd MMM yyyy, HH:mm:ss')
-                                .format(DateTime.parse(snapshot.data!.toIso8601String()))
+                            ? snapshot.data!.toIso8601String()
                             : 'Sincronizando...',
                         style: const TextStyle(fontSize: 20),
                       ),
                 Text(
-                  DateFormat('dd MMM yyyy, HH:mm:ss').format(DateTime.now()),
+                  DateTime.now().toString(),
                   style: const TextStyle(fontSize: 20),
                 ),
               ],

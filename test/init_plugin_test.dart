@@ -1,4 +1,4 @@
-import 'package:dthr_sync/dthr_sync.dart';
+import 'package:dthr_sync/single_clock.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

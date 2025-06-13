@@ -1,4 +1,4 @@
-import 'package:dthr_sync/dthr_sync.dart';
+import 'package:dthr_sync/single_clock.dart';
 import 'package:dthr_sync/src/data/repo/data_repo.dart';
 import 'package:dthr_sync/src/data/service/sync_service.dart';
 import 'package:dthr_sync/src/data/source/api_source.dart';
