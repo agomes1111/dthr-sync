@@ -16,12 +16,12 @@ class CacheData {
 
   // TODO: implement CacheData.toJson();
 
-  RuntimeLoadedData toRuntimeData() {
-    return RuntimeLoadedData(
-      loadedClock: null,
-      pluginSettings: this.pluginSettings,
-    );
-  }
+  // RuntimeLoadedData toRuntimeData() {
+  //   return RuntimeLoadedData(
+  //     loadedClock: null,
+  //     pluginSettings: this.pluginSettings,
+  //   );
+  // }
 
   @override
   CacheData toCache() {

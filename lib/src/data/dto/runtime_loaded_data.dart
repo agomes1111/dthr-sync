@@ -1,18 +1,31 @@
 import 'package:dthr_sync/src/data/dto/cache_data.dart';
+import 'package:dthr_sync/src/domain/entities/plugin_settings.dart';
 import 'package:dthr_sync/src/domain/entities/runtime_data.dart';
+import 'package:dthr_sync/src/domain/entities/synced_clock.dart';
 
-class RuntimeLoadedData extends RuntimeData {
-  // ElapsedProvider _loadedTime;
-  RuntimeLoadedData({
-    required super.loadedClock,
-    required super.pluginSettings,
+class RuntimeLoadedData {
+  List<SingleRuntimeData> runtimeLoadedData = [];
+}
+
+class SingleRuntimeData implements RuntimeData {
+  @override
+  String? id;
+
+  @override
+  SyncedClock? loadedClock;
+
+  @override
+  PluginSettings pluginSettings;
+
+  SingleRuntimeData({
+    this.id,
+    required this.loadedClock,
+    required this.pluginSettings,
   });
-  // : _loadedTime = loadedClock
 
+  @override
   CacheData toCache() {
-    return CacheData(
-      // loadedClock: loadedClock,
-      pluginSettings: pluginSettings,
-    );
+    // TODO: implement toCache
+    throw UnimplementedError();
   }
 }
