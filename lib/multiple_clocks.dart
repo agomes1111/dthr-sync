@@ -34,6 +34,10 @@ class MultipleClocksHandler {
       return null;
     }
   }
+
+  bool hasClock(String id) {
+    return clocks.firstWhereOrNull((element) => element.id == id) != null;
+  }
 }
 
 MultipleClocksHandler? _clocksHandler;
