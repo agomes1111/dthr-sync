@@ -5,6 +5,10 @@ class GetTimeUseCase {
   DataRepo _dataRepo;
   GetTimeUseCase(this._dataRepo);
 
+  RuntimeData? callNoAsync(String id) {
+    return _dataRepo.getTimeDir(id);
+  }
+
   Future<RuntimeData> call(String id) async {
     return (await _dataRepo.getDataById(id)).fold(
       /// returns runtime loaded timestamp

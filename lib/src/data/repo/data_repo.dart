@@ -21,6 +21,12 @@ class DataRepo implements DataRepository {
     required this.loadedDataSingleton,
   });
 
+  RuntimeData? getTimeDir(String id) {
+    print('fetching_time_dir');
+    return loadedDataSingleton.loadedData?.runtimeLoadedData
+        .firstWhereOrNull((item) => item.id == id);
+  }
+
   @override
   Future<Either<RuntimeData, ApiTimeDto>> getDataById(String id) async {
     if (loadedDataSingleton.isLoaded()) {

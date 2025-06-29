@@ -23,6 +23,20 @@ class MultipleClocksHandler {
     }
   }
 
+  /// will not try to fetch API timestamp if its not loaded at runtime
+  DateTime? getTimeByIdNoAsync(String id) {
+    Clock? clock = clocks.firstWhereOrNull((element) => element.id == id);
+    if (clock != null) {
+      DateTime? dthr = clock.getTimeNoAsync();
+      log(name: '\nmultiple_clocks_handler(no async)', 'clock_${id}_found_${dthr}');
+      return dthr;
+    } else {
+      log(name: '\n[err]multiple_clocks_handler_${id}(no async)', 'clock_not_found');
+      return null;
+    }
+  }
+
+  /// will try to fetch API timestamp if its not loaded at runtime
   Future<DateTime?> getTimeById(String id) async {
     Clock? clock = clocks.firstWhereOrNull((element) => element.id == id);
     if (clock != null) {
@@ -44,9 +58,9 @@ MultipleClocksHandler? _clocksHandler;
 
 MultipleClocksHandler get clocksHandler {
   if (_clocksHandler == null) {
-    throw Exception('module_not_initialized_did_you_call_startClock()');
-  } else
-    return _clocksHandler!;
+    _clocksHandler = MultipleClocksHandler();
+  }
+  return _clocksHandler!;
 }
 
 final Function startClock = (

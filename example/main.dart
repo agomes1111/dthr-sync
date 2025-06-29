@@ -102,6 +102,15 @@ class MyApp extends StatelessWidget {
                 );
               },
             ),
+            ElevatedButton(
+                onPressed: () {
+                  clocksHandler.updateClockTimeStampById(
+                    DateTime.now().add(Duration(minutes: 3)),
+                    Duration(milliseconds: 3000),
+                    CLOK_1,
+                  );
+                },
+                child: Text('edit_clock'))
           ],
         )),
       ),

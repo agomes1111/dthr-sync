@@ -21,6 +21,10 @@ class Clock {
     this._getTimeUseCase,
   );
 
+  DateTime? getTimeNoAsync() {
+    return _getTimeUseCase.callNoAsync(this.id)?.loadedClock?.currentTime;
+  }
+
   Future<DateTime?> getTime() async {
     RuntimeData _runtimeData = await _getTimeUseCase.call(this.id);
     return _runtimeData.loadedClock?.currentTime;
