@@ -12,6 +12,7 @@ abstract class SyncedClock {
   }) : elapsedProvider = elapsedProv ??
             (() {
               final sw = Stopwatch()..start();
+              print('SW _ ELAPSED ${sw.elapsed}');
               return () => sw.elapsed;
             }());
 

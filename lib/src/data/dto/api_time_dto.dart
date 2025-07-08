@@ -16,8 +16,8 @@ class ApiTimeDto extends SyncedClock {
     );
   }
 
-  RuntimeLoadedData toRuntimeData(PluginSettings settings) {
-    return RuntimeLoadedData(
+  SingleRuntimeData toRuntimeData(PluginSettings settings) {
+    return SingleRuntimeData(
       loadedClock: this,
       pluginSettings: settings,
     );

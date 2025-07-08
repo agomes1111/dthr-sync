@@ -3,10 +3,10 @@ import 'dart:developer';
 
 import 'package:dthr_sync/src/data/dto/api_time_dto.dart';
 import 'package:dthr_sync/src/data/dto/plugin_settings_dto.dart';
-import 'package:dthr_sync/src/data/dto/runtime_loaded_data.dart';
 import 'package:dthr_sync/src/data/source/api_source.dart';
 import 'package:dthr_sync/src/data/source/runtime_loaded_data_singleton.dart';
 import 'package:dthr_sync/src/domain/entities/runtime_data.dart';
+import 'package:collection/collection.dart';
 
 class SyncService {
   RuntimeLoadedDataSingleton singleton;
@@ -50,14 +50,16 @@ class SyncService {
   }
 
   Future syncStoredData(RuntimeData runtimeData) async {
-    RuntimeData? loadedData = singleton.loadedData;
+    RuntimeData? loadedData = singleton.loadedData?.runtimeLoadedData.firstWhereOrNull(
+      (i) => i.id == runtimeData.id,
+    );
 
     if (loadedData != null &&
         (loadedData.pluginSettings.api_url != runtimeData.pluginSettings.api_url)) {
       print('overriding_runtime_existing_api_url_settings');
     }
 
-    singleton.updateLoadedData = runtimeData as RuntimeLoadedData;
-    print('syncing_runtime_xstored_data');
+    singleton.updateLoadedData = runtimeData;
+    print('synced_runtime_xstored_data');
   }
 }
